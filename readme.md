@@ -64,10 +64,7 @@ If Gemini fails or the daily quota runs out, Utaline falls back to the other pro
 ---
 
 ## Known limitations
-- The floating window **cannot be transparent or click-through**, and it probably won't show over games in exclusive fullscreen. These are browser limits.
-- It closes when the YouTube Music tab is closed, and it has to be opened with a click or with Alt+L.
 - Songs whose lyrics only exist without timestamps (common for less-known Russian songs) can't be synced. They are shown as plain text with romanization.
-- Lyrics are matched by title and artist, so user-uploaded videos (e.g. `Song (LYRICS) - Artist` posted by a fan channel) usually won't find lyrics. Use the official tracks in YouTube Music.
 
 ---
 
