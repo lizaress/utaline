@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "YouLy+",
+    "message": "Utaline",
     "description": "Extension name"
   },
   "extensionDescription": {
@@ -8,7 +8,7 @@
     "description": "Extension description"
   },
   "popupTitle": {
-    "message": "تنظیمات YouLy+",
+    "message": "تنظیمات Utaline",
     "description": "Title shown in the popup header and page title"
   },
   "tabGeneral": {
@@ -28,7 +28,7 @@
     "description": "Section title in popup General tab"
   },
   "settingEnableExtension": {
-    "message": "فعال‌سازی YouLy+",
+    "message": "فعال‌سازی Utaline",
     "description": "Label for the master enable toggle"
   },
   "sectionDataSources": {
@@ -116,7 +116,7 @@
     "description": "Error when chrome runtime API is unavailable"
   },
   "settingsTitle": {
-    "message": "تنظیمات YouLy+",
+    "message": "تنظیمات Utaline",
     "description": "Title shown in full settings page header and nav drawer"
   },
   "navGeneral": {

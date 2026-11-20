@@ -1,8 +1,10 @@
-# ytlyric
+# Utaline
+
+> *Uta* (歌) means "song" in Japanese. Utaline shows you every line of the song as it plays.
 
 Real-time karaoke lyrics for **YouTube Music**, in a **floating always-on-top window**, with romanization for Japanese, Chinese and Russian songs.
 
-ytlyric is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra Al Tabian. YouLy+ handles the lyrics: it finds them, syncs them word by word and romanizes them. ytlyric adds a floating window that shows those lyrics outside the browser tab, plus fixes for the languages and songs it was built for.
+Utaline is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra Al Tabian. YouLy+ handles the lyrics: it finds them, syncs them word by word and romanizes them. Utaline adds a floating window that shows those lyrics outside the browser tab, plus fixes for the languages and songs it was built for.
 
 > **Status:** personal project, tested on Microsoft Edge on Windows. It is not published in any extension store.
 
@@ -10,7 +12,7 @@ ytlyric is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra
 
 ## Features
 
-### Added in ytlyric
+### Added in Utaline
 - **Floating lyrics window.** Shows the lyrics on top of other apps and games running in windowed or borderless mode. Open it with the **⧉** button in the player bar or press **Alt+L**.
   - Mini player: artwork, title, artist, previous / play-pause / next.
   - **A- / A+** to change the lyrics size.
@@ -19,10 +21,10 @@ ytlyric is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra
   - Keeps playing in sync when you switch tabs or minimize the browser.
   - Remembers its size.
 - **Better Russian romanization**, using simplified BGN/PCGN rules that depend on the surrounding letters (`ель → yel`, `нет → net`, `пьёт → pyot`, `жёлтый → zholtyy`). This also works across karaoke syllables. Ukrainian is detected automatically.
-- **Japanese romanization works out of the box.** If the offline Kuromoji dictionary isn't installed, ytlyric falls back to Google instead of leaving kanji untranslated.
+- **Japanese romanization works out of the box.** If the offline Kuromoji dictionary isn't installed, Utaline falls back to Google instead of leaving kanji untranslated.
 - **Romanization and translation for unsynced lyrics.** They now appear under each line.
 - **Smarter search for user-uploaded videos.** Titles like `Closing Time (LYRICS) - Semisonic 🎧` uploaded by a channel are cleaned up and searched again as *Closing Time / Semisonic*.
-- **Original-language subtitles.** When YouTube subtitles are the only source, ytlyric picks the original-language track instead of an English translation.
+- **Original-language subtitles.** When YouTube subtitles are the only source, Utaline picks the original-language track instead of an English translation.
 
 ### From YouLy+
 - Word-by-word and syllable-synced lyrics with smooth CSS animations.
@@ -37,12 +39,12 @@ ytlyric is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra
 
 1. Download or clone this repository:
    ```bash
-   git clone https://github.com/lizaress/ytlyric.git
+   git clone https://github.com/lizaress/utaline.git
    ```
 2. Open `edge://extensions` (or `chrome://extensions`).
 3. Turn on **Developer mode**.
 4. If you have YouLy+ installed from the store, turn it off so the two don't conflict.
-5. Click **Load unpacked** and select the `ytlyric` folder.
+5. Click **Load unpacked** and select the `utaline` folder.
 6. Open [YouTube Music](https://music.youtube.com), play a song and open the **Lyrics** tab once.
 7. Press **⧉** in the player bar or **Alt+L** to open the floating window.
 
@@ -58,7 +60,7 @@ Gemini reads kanji more accurately than the offline dictionary or Google. It use
 3. Paste the key in **Gemini AI API Key** and set **Transliteration Provider** to **Gemini AI**.
 4. Under **Cache**, click **Clear Transliteration Cache** so songs are romanized again.
 
-If Gemini fails or the daily quota runs out, ytlyric falls back to the other providers automatically.
+If Gemini fails or the daily quota runs out, Utaline falls back to the other providers automatically.
 
 ---
 
@@ -74,7 +76,7 @@ If Gemini fails or the daily quota runs out, ytlyric falls back to the other pro
 
 Plain JavaScript (Manifest V3), no build step. Load the folder unpacked and reload the extension after changes.
 
-Main ytlyric additions:
+Main Utaline additions:
 
 | File | Purpose |
 |---|---|

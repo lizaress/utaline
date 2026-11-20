@@ -1,5 +1,5 @@
 // popout/popout.js
-// ytlyric: floating always-on-top lyrics window using the Document Picture-in-Picture API.
+// utaline: floating always-on-top lyrics window using the Document Picture-in-Picture API.
 //
 // How it works: the existing YouLy+ lyrics panel (#lyplus-patch-container, which holds
 // #lyrics-plus-container) is MOVED into the PiP window, so the same renderer keeps driving
@@ -8,11 +8,11 @@
 (function () {
   'use strict';
 
-  if (window.__ytlyricPopout) return;
-  window.__ytlyricPopout = true;
+  if (window.__utalinePopout) return;
+  window.__utalinePopout = true;
 
   const PATCH_ID = 'lyplus-patch-container';
-  const STORE_KEY = 'ytlyric.popout';
+  const STORE_KEY = 'utaline.popout';
   const TITLE_SEL = '.title.style-scope.ytmusic-player-bar';
   const BYLINE_SEL = '.byline.style-scope.ytmusic-player-bar';
 
@@ -139,7 +139,7 @@
 
   // ---------- PiP UI ----------
   function buildShell(doc) {
-    doc.title = 'ytlyric';
+    doc.title = 'Utaline';
     doc.body.innerHTML = `
       <div id="ytl-header">
         <img id="ytl-art" alt="">
@@ -203,7 +203,7 @@
   async function openPopout() {
     if (state.pipWin) { state.pipWin.focus(); return; }
     if (!('documentPictureInPicture' in window)) {
-      alert(msg('ytlUnsupported', 'ytlyric: this browser does not support floating windows (Document Picture-in-Picture). Use Edge or Chrome 116+.'));
+      alert(msg('ytlUnsupported', 'Utaline: this browser does not support floating windows (Document Picture-in-Picture). Use Edge or Chrome 116+.'));
       return;
     }
 
@@ -225,7 +225,7 @@
     if (panel) {
       state.panel = panel;
       state.originalParent = panel.parentNode;
-      state.placeholder = document.createComment('ytlyric-popout-placeholder');
+      state.placeholder = document.createComment('utaline-popout-placeholder');
       panel.parentNode.insertBefore(state.placeholder, panel);
       body.appendChild(panel);
     } else {
@@ -238,7 +238,7 @@
     // Keep the renderer running while the YT Music tab is hidden: it checks this flag,
     // and its timers / animation frames run on the (visible) PiP window instead of the hidden tab.
     window.__lyplusPopoutActive = true;
-    window.__ytlyricTimerHost?.attach(pipWin);
+    window.__utalineTimerHost?.attach(pipWin);
     resyncRenderer();
 
     // Let the renderer re-measure for the new size.
@@ -253,7 +253,7 @@
     if (pipWin) savePrefs({ width: pipWin.innerWidth, height: pipWin.innerHeight });
 
     window.__lyplusPopoutActive = false;
-    window.__ytlyricTimerHost?.detach();
+    window.__utalineTimerHost?.detach();
 
     if (state.panel) {
       // YouLy+ may have created a fresh empty wrapper while ours was away: drop it.
@@ -306,7 +306,7 @@
     if (typeof setCurrentDisplayModeAndRender === 'function') {
       setCurrentDisplayModeAndRender(next);
     } else {
-      console.warn('ytlyric: setCurrentDisplayModeAndRender is not available');
+      console.warn('Utaline: setCurrentDisplayModeAndRender is not available');
     }
     renderModeButtons(next);
   }
@@ -351,7 +351,7 @@
       try {
         r._applyPaletteSettings(container, Object.assign({}, typeof currentSettings !== 'undefined' ? currentSettings : {}, { overridePaletteColor: hex }));
         if (!hex) container.style.removeProperty('--lyplus-override-pallete');
-      } catch (e) { console.warn('ytlyric: could not apply the color', e); }
+      } catch (e) { console.warn('Utaline: could not apply the color', e); }
     }
     renderPalette();
   }
@@ -375,17 +375,17 @@
 
   function togglePopout() {
     if (state.pipWin) state.pipWin.close();
-    else openPopout().catch((err) => console.error('ytlyric: could not open the floating window', err));
+    else openPopout().catch((err) => console.error('Utaline: could not open the floating window', err));
   }
 
   // ---------- entry points: player-bar button + Alt+L ----------
   function injectButton() {
-    if (document.getElementById('ytlyric-popout-btn')) return;
+    if (document.getElementById('utaline-popout-btn')) return;
     const host = document.querySelector('ytmusic-player-bar .right-controls-buttons')
       || document.querySelector('ytmusic-player-bar #right-controls');
     if (!host) return;
     const btn = document.createElement('button');
-    btn.id = 'ytlyric-popout-btn';
+    btn.id = 'utaline-popout-btn';
     btn.title = msg('ytlPopoutButton', 'Lyrics in a floating window (Alt+L)');
     btn.textContent = '⧉';
     btn.style.cssText = 'background:none;border:0;color:var(--yt-spec-text-primary,#fff);font-size:20px;'
@@ -404,10 +404,10 @@
   // YT Music re-renders its player bar; re-add the button if it disappears (debounced).
   let injectTimer = null;
   new MutationObserver(() => {
-    if (injectTimer || document.getElementById('ytlyric-popout-btn')) return;
+    if (injectTimer || document.getElementById('utaline-popout-btn')) return;
     injectTimer = setTimeout(() => { injectTimer = null; injectButton(); }, 500);
   }).observe(document.documentElement, { childList: true, subtree: true });
   injectButton();
 
-  window.ytlyricPopout = { open: openPopout, toggle: togglePopout };
+  window.utalinePopout = { open: openPopout, toggle: togglePopout };
 })();

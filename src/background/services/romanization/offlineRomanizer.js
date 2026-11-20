@@ -56,7 +56,7 @@ export class OfflineRomanizer {
       return GreekRomanizer.romanizeSyllables(syllables);
     }
 
-    // ytlyric: Cyrillic needs neighbouring syllables as context (е → ye / e).
+    // utaline: Cyrillic needs neighbouring syllables as context (е → ye / e).
     const isCyrillic = langContext === 'cyrillic' || /[\p{Script=Cyrillic}]/u.test(lineContext);
     if (isCyrillic) {
       return CyrillicRomanizer.romanizeSyllables(syllables, lineContext);

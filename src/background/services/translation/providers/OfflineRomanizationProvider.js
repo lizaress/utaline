@@ -106,7 +106,7 @@ export class OfflineRomanizationProvider extends TranslationProvider {
     let tokenizer = null;
     if (langContext === 'japanese') {
       tokenizer = await dictionaryService.getKuromojiTokenizer();
-      // ytlyric: without the Kuromoji dictionary, kanji stay untouched and words run together.
+      // utaline: without the Kuromoji dictionary, kanji stay untouched and words run together.
       // Fail here so the provider chain falls back to Google (same quality as the WPF prototype).
       if (!tokenizer) {
         throw new Error('Kuromoji dictionary not installed; falling back to the next romanization provider.');

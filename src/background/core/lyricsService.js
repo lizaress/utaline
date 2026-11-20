@@ -250,7 +250,7 @@ export class LyricsService {
   }
 
   /**
-   * ytlyric: when nothing is found, retry with cleaned-up title/artist variants
+   * utaline: when nothing is found, retry with cleaned-up title/artist variants
    * (e.g. "Closing Time (LYRICS) - Semisonic 🎧" by channel "n3oMusic" → "Closing Time" / "Semisonic").
    * Results are cached under the original song's key.
    */
@@ -258,7 +258,7 @@ export class LyricsService {
     const variants = buildSearchVariants(songInfo);
     for (const variant of variants) {
       try {
-        console.log(`ytlyric: no lyrics for "${songInfo.title}" / "${songInfo.artist}", retrying as "${variant.title}" / "${variant.artist}"`);
+        console.log(`Utaline: no lyrics for "${songInfo.title}" / "${songInfo.artist}", retrying as "${variant.title}" / "${variant.artist}"`);
         const variantInfo = { ...songInfo, title: variant.title, artist: variant.artist, subtitle: null };
         const result = await this.fetchNewLyrics(variantInfo, cacheKey, forceReload);
         if (result?.lyrics && !Utilities.isEmptyLyrics(result.lyrics)) return result;

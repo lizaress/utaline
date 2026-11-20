@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "YouLy+",
+    "message": "Utaline",
     "description": "Extension name"
   },
   "extensionDescription": {
@@ -8,7 +8,7 @@
     "description": "Extension description"
   },
   "popupTitle": {
-    "message": "YouLy+ Settings",
+    "message": "Utaline Settings",
     "description": "Title shown in the popup header and page title"
   },
   "tabGeneral": {
@@ -28,7 +28,7 @@
     "description": "Section title in popup General tab"
   },
   "settingEnableExtension": {
-    "message": "Enable YouLy+",
+    "message": "Enable Utaline",
     "description": "Label for the master enable toggle"
   },
   "sectionDataSources": {
@@ -116,7 +116,7 @@
     "description": "Error when chrome runtime API is unavailable"
   },
   "settingsTitle": {
-    "message": "YouLy+ Settings",
+    "message": "Utaline Settings",
     "description": "Title shown in full settings page header and nav drawer"
   },
   "navGeneral": {
@@ -1225,78 +1225,78 @@
   },
   "ytlPrev": {
     "message": "Previous",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlPlayPause": {
     "message": "Play / pause",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlNext": {
     "message": "Next",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlSmaller": {
     "message": "Smaller lyrics",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlBigger": {
     "message": "Bigger lyrics",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlRomanize": {
     "message": "Romanization (romaji / pinyin / Latin)",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlTranslate": {
     "message": "Translation",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColor": {
     "message": "Lyrics color",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlPopoutButton": {
     "message": "Lyrics in a floating window (Alt+L)",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlUnsupported": {
-    "message": "ytlyric: this browser does not support floating windows (Document Picture-in-Picture). Use Edge or Chrome 116+.",
-    "description": "ytlyric floating window"
+    "message": "Utaline: this browser does not support floating windows (Document Picture-in-Picture). Use Edge or Chrome 116+.",
+    "description": "Utaline floating window"
   },
   "ytlOpenLyricsTab": {
     "message": "Open the Lyrics tab in YouTube Music once, then open the floating window again.",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorAuto": {
     "message": "Automatic",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorRed": {
     "message": "YouTube red",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorEmerald": {
     "message": "Emerald green",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorCyan": {
     "message": "Neon cyan",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorGold": {
     "message": "Gold",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorPurple": {
     "message": "Neon purple",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorOrange": {
     "message": "Fire orange",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   },
   "ytlColorWhite": {
     "message": "White",
-    "description": "ytlyric floating window"
+    "description": "Utaline floating window"
   }
 }

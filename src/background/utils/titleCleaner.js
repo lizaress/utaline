@@ -1,5 +1,5 @@
 // utils/titleCleaner.js
-// ytlyric: user-uploaded YouTube videos often have titles like
+// utaline: user-uploaded YouTube videos often have titles like
 //   "Closing Time (LYRICS) - Semisonic 🎧🎧🎧"  by channel "n3oMusic"
 // so searching with that title + the channel name finds nothing. This builds cleaner
 // title/artist variants to retry the search (ported and extended from the WPF prototype).

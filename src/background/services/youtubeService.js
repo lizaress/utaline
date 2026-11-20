@@ -66,7 +66,7 @@ export class YouTubeService {
       const fetchedTracks = (await Promise.all(trackPromises)).filter(Boolean);
       if (fetchedTracks.length === 0) return null;
 
-      // ytlyric: YouTube often lists an English translation track first. For lyrics we want the
+      // utaline: YouTube often lists an English translation track first. For lyrics we want the
       // original language, so prefer tracks written in a non-Latin script (Japanese, Chinese,
       // Korean, Russian...) and hand-made tracks over auto-generated ones.
       const NON_LATIN = /[぀-ヿ㐀-鿿가-힯\p{Script=Cyrillic}֐-ۿ฀-๿]/gu;

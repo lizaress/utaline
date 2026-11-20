@@ -335,7 +335,7 @@
     padding: 0 var(--lyplus-padding-line);
 }
 
-/* ytlyric: romanization / translation under each line of unsynced lyrics */
+/* utaline: romanization / translation under each line of unsynced lyrics */
 #lyrics-plus-container .ytl-plain-blank {
     height: 1em;
 }

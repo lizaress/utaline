@@ -2,7 +2,7 @@
  * Cyrillic Romanizer (transliteration to Latin).
  * Supports Russian, Ukrainian, Belarusian, and Bulgarian characters.
  *
- * ytlyric: context-aware rules for Russian (simplified BGN/PCGN, no diacritics so lyrics
+ * utaline: context-aware rules for Russian (simplified BGN/PCGN, no diacritics so lyrics
  * stay easy to sing along):
  *   - е → "ye" at the start of a word, after a vowel, or after ь/ъ (ель → yel', поехал → poyekhal);
  *     otherwise "e" (нет → net).

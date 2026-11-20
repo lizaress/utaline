@@ -1,5 +1,5 @@
 // popout/timerHost.js
-// ytlyric: lets the extension's timers keep running at full speed while the YT Music tab is
+// utaline: lets the extension's timers keep running at full speed while the YT Music tab is
 // hidden (other tab selected or Edge minimized) but the popout window is visible.
 //
 // Browsers throttle setTimeout / requestAnimationFrame of hidden tabs. While the popout is
@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  if (window.__ytlyricTimerHost) return;
+  if (window.__utalineTimerHost) return;
 
   const native = {
     setTimeout: window.setTimeout.bind(window),
@@ -99,7 +99,7 @@
     }
   }
 
-  window.__ytlyricTimerHost = {
+  window.__utalineTimerHost = {
     attach(win) {
       pip = win;
       migrate();
