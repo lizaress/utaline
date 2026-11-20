@@ -14,6 +14,7 @@ import { UnisonService } from '../services/unisonService.js';
 import { LrcredService } from '../services/lrcredService.js';
 import { YouTubeService } from '../services/youtubeService.js';
 import { parseAppleTTML } from '../../lib/parser.js';
+import { buildSearchVariants } from '../utils/titleCleaner.js';
 
 export class LyricsService {
   static songProvidersCache = new Map();
@@ -188,7 +189,8 @@ export class LyricsService {
         if (state.hasOngoingFetch(cacheKey)) {
           result = await state.getOngoingFetch(cacheKey);
         } else {
-          const fetchPromise = this.fetchNewLyrics(songInfo, cacheKey, forceReload);
+          const fetchPromise = this.fetchNewLyrics(songInfo, cacheKey, forceReload)
+            .catch((error) => this.fetchWithCleanedTitle(songInfo, cacheKey, forceReload, error));
           state.setOngoingFetch(cacheKey, fetchPromise);
           result = await fetchPromise;
         }
@@ -245,6 +247,26 @@ export class LyricsService {
     }
 
     return result;
+  }
+
+  /**
+   * ytlyric: when nothing is found, retry with cleaned-up title/artist variants
+   * (e.g. "Closing Time (LYRICS) - Semisonic 🎧" by channel "n3oMusic" → "Closing Time" / "Semisonic").
+   * Results are cached under the original song's key.
+   */
+  static async fetchWithCleanedTitle(songInfo, cacheKey, forceReload, originalError) {
+    const variants = buildSearchVariants(songInfo);
+    for (const variant of variants) {
+      try {
+        console.log(`ytlyric: no lyrics for "${songInfo.title}" / "${songInfo.artist}", retrying as "${variant.title}" / "${variant.artist}"`);
+        const variantInfo = { ...songInfo, title: variant.title, artist: variant.artist, subtitle: null };
+        const result = await this.fetchNewLyrics(variantInfo, cacheKey, forceReload);
+        if (result?.lyrics && !Utilities.isEmptyLyrics(result.lyrics)) return result;
+      } catch (e) {
+        // try the next variant
+      }
+    }
+    throw originalError;
   }
 
   static async getFromDB(key) {
