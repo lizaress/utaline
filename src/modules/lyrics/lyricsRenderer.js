@@ -1516,27 +1516,50 @@ class LyricsPlusRenderer {
     const contentWrapper = document.createElement("div");
     contentWrapper.className = "lyrics-plain-text-content";
 
-    let fullText = "";
+    // ytlyric: render line by line so romanization / translation (when loaded) appear under
+    // each line. YouLy+ used a single text block and ignored them for unsynced lyrics.
     let currentSongPartIndex = 0;
+    let hasContent = false;
+    const addBlank = () => {
+      const blank = document.createElement("div");
+      blank.className = "ytl-plain-blank";
+      contentWrapper.appendChild(blank);
+    };
 
     lyrics.data.forEach((line) => {
-      const lineText = this._getDataText(line, true);
       const partIdx = line.element?.songPartIndex;
 
-      if (partIdx !== currentSongPartIndex && fullText !== "") {
-        fullText += "\n";
-      }
+      if (partIdx !== currentSongPartIndex && hasContent) addBlank();
 
       if (!line.text || !line.text.trim()) {
-        fullText += "\n";
+        addBlank();
       } else {
-        fullText += lineText + "\n";
+        const block = document.createElement("div");
+        block.className = "ytl-plain-line";
+
+        const main = document.createElement("div");
+        main.textContent = this._getDataText(line, true);
+        block.appendChild(main);
+
+        const sub = this._getDataText(line, false);
+        if (line.romanizedText && sub && sub !== main.textContent) {
+          const rom = document.createElement("div");
+          rom.className = "ytl-plain-sub";
+          rom.textContent = sub;
+          block.appendChild(rom);
+        }
+        if (line.translatedText && line.translatedText !== line.text) {
+          const tr = document.createElement("div");
+          tr.className = "ytl-plain-sub ytl-plain-translation";
+          tr.textContent = line.translatedText;
+          block.appendChild(tr);
+        }
+        contentWrapper.appendChild(block);
+        hasContent = true;
       }
 
       currentSongPartIndex = partIdx || currentSongPartIndex;
     });
-
-    contentWrapper.textContent = fullText;
 
     container.appendChild(contentWrapper);
     fragment.appendChild(container);

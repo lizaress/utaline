@@ -335,6 +335,24 @@
     padding: 0 var(--lyplus-padding-line);
 }
 
+/* ytlyric: romanization / translation under each line of unsynced lyrics */
+#lyrics-plus-container .ytl-plain-blank {
+    height: 1em;
+}
+
+#lyrics-plus-container .ytl-plain-line {
+    margin-bottom: 0.15em;
+}
+
+#lyrics-plus-container .ytl-plain-sub {
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+#lyrics-plus-container .ytl-plain-translation {
+    font-style: italic;
+}
+
 #lyrics-plus-container.blur-inactive-enabled:not(.not-focused).plain-text-mode .lyrics-plus-metadata:not(.lyrics-activest) {
     filter: none;
 }

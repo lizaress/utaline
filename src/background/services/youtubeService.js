@@ -66,6 +66,21 @@ export class YouTubeService {
       const fetchedTracks = (await Promise.all(trackPromises)).filter(Boolean);
       if (fetchedTracks.length === 0) return null;
 
+      // ytlyric: YouTube often lists an English translation track first. For lyrics we want the
+      // original language, so prefer tracks written in a non-Latin script (Japanese, Chinese,
+      // Korean, Russian...) and hand-made tracks over auto-generated ones.
+      const NON_LATIN = /[぀-ヿ㐀-鿿가-힯\p{Script=Cyrillic}֐-ۿ฀-๿]/gu;
+      const scoreTrack = (t) => {
+        const text = (t.data || []).map(l => l.text || '').join(' ');
+        const letters = text.replace(/[\s\p{P}\p{N}]/gu, '').length || 1;
+        const nonLatinRatio = (text.match(NON_LATIN) || []).length / letters;
+        let score = nonLatinRatio > 0.3 ? 10 : 0;
+        if (t.kind === 'asr') score -= 3;
+        if (t.isDefault) score += 1;
+        return score;
+      };
+      fetchedTracks.sort((a, b) => scoreTrack(b) - scoreTrack(a));
+
       return {
         type: fetchedTracks[0].type || 'Line',
         tracks: fetchedTracks,
