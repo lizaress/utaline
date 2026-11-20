@@ -56,6 +56,12 @@ export class OfflineRomanizer {
       return GreekRomanizer.romanizeSyllables(syllables);
     }
 
+    // ytlyric: Cyrillic needs neighbouring syllables as context (е → ye / e).
+    const isCyrillic = langContext === 'cyrillic' || /[\p{Script=Cyrillic}]/u.test(lineContext);
+    if (isCyrillic) {
+      return CyrillicRomanizer.romanizeSyllables(syllables, lineContext);
+    }
+
     const isChinese = langContext === 'chinese' || (!isJapanese && /[\u4E00-\u9FFF]/u.test(lineContext));
 
     return syllables.map((s, idx) => {

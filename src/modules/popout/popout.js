@@ -44,6 +44,7 @@
     if (event.data.type === 'LYPLUS_SONG_CHANGED') {
       state.songInfo = event.data.songInfo || null;
       renderHeader();
+      setTimeout(() => renderModeButtons(), 1500);
     }
   });
 
@@ -110,6 +111,8 @@
     #ytl-controls button { background: none; border: 0; color: #fff; font-size: 15px; width: 30px; height: 30px;
       border-radius: 6px; cursor: pointer; opacity: 0.85; }
     #ytl-controls button:hover { background: rgba(255,255,255,0.12); opacity: 1; }
+    #ytl-controls button[data-act="romanize"], #ytl-controls button[data-act="translate"] { width: auto; padding: 0 6px; font-size: 12px; font-weight: 700; }
+    #ytl-controls button.is-on { background: rgba(255,255,255,0.22); opacity: 1; box-shadow: inset 0 -2px 0 #fff; }
     #ytl-palette { display: flex; gap: 8px; padding: 8px 10px; flex-wrap: wrap; flex: none;
       background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.08); }
     #ytl-palette[hidden] { display: none; }
@@ -137,6 +140,8 @@
           <button data-act="next" title="Siguiente">⏭</button>
           <button data-act="smaller" title="Letra más pequeña">A-</button>
           <button data-act="bigger" title="Letra más grande">A+</button>
+          <button data-act="romanize" title="Romanización (romaji / pinyin / latino)">Aa</button>
+          <button data-act="translate" title="Traducción">文A</button>
           <button data-act="color" title="Color de la letra">🎨</button>
         </div>
       </div>
@@ -150,6 +155,10 @@
 
     doc.getElementById('ytl-controls').addEventListener('click', (e) => {
       const act = e.target.closest('button')?.dataset.act;
+      if (act === 'romanize' || act === 'translate') {
+        toggleDisplayMode(act);
+        return;
+      }
       if (act === 'color') {
         const box = doc.getElementById('ytl-palette');
         box.hidden = !box.hidden;
@@ -199,6 +208,7 @@
     buildShell(pipWin.document);
     setScale(prefs.scale);
     renderHeader();
+    renderModeButtons();
 
     const panel = document.getElementById(PATCH_ID);
     const body = pipWin.document.getElementById('ytl-body');
@@ -259,6 +269,42 @@
   function resyncRenderer() {
     const r = renderer();
     try { r?._runScheduledSync?.(true); } catch (e) { /* no lyrics loaded yet */ }
+  }
+
+  // ---------- romanization / translation toggles ----------
+  // YouLy+ keeps these in lyricsManager.js: `currentDisplayMode` ('none'|'translate'|'romanize'|'both')
+  // and `setCurrentDisplayModeAndRender(mode)`. Its own toggle button stays in the YT Music page,
+  // so the popout needs its own.
+  function getDisplayMode() {
+    try { return typeof currentDisplayMode !== 'undefined' ? currentDisplayMode : 'none'; } catch (e) { return 'none'; }
+  }
+
+  function toggleDisplayMode(which) {
+    const mode = getDisplayMode();
+    let rom = mode === 'romanize' || mode === 'both';
+    let tr = mode === 'translate' || mode === 'both';
+    if (which === 'romanize') rom = !rom; else tr = !tr;
+    const next = rom && tr ? 'both' : rom ? 'romanize' : tr ? 'translate' : 'none';
+
+    // Remember for next songs / next session (same settings YouLy+ uses).
+    const pBrowser = typeof browser !== 'undefined' ? browser : (typeof chrome !== 'undefined' ? chrome : null);
+    try { pBrowser?.storage?.local?.set({ romanizationEnabled: rom, translationEnabled: tr }); } catch (e) { /* ignore */ }
+
+    if (typeof setCurrentDisplayModeAndRender === 'function') {
+      setCurrentDisplayModeAndRender(next);
+    } else {
+      console.warn('ytlyric: setCurrentDisplayModeAndRender no disponible');
+    }
+    renderModeButtons(next);
+  }
+
+  function renderModeButtons(mode = getDisplayMode()) {
+    const doc = state.pipWin?.document;
+    if (!doc) return;
+    const rom = mode === 'romanize' || mode === 'both';
+    const tr = mode === 'translate' || mode === 'both';
+    doc.querySelector('[data-act="romanize"]')?.classList.toggle('is-on', rom);
+    doc.querySelector('[data-act="translate"]')?.classList.toggle('is-on', tr);
   }
 
   // ---------- lyrics color ----------
