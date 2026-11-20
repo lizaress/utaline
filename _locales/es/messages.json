@@ -1222,5 +1222,81 @@
         "content": "$2"
       }
     }
+  },
+  "ytlPrev": {
+    "message": "Anterior",
+    "description": "ytlyric floating window"
+  },
+  "ytlPlayPause": {
+    "message": "Reproducir / pausar",
+    "description": "ytlyric floating window"
+  },
+  "ytlNext": {
+    "message": "Siguiente",
+    "description": "ytlyric floating window"
+  },
+  "ytlSmaller": {
+    "message": "Letra más pequeña",
+    "description": "ytlyric floating window"
+  },
+  "ytlBigger": {
+    "message": "Letra más grande",
+    "description": "ytlyric floating window"
+  },
+  "ytlRomanize": {
+    "message": "Romanización (romaji / pinyin / latino)",
+    "description": "ytlyric floating window"
+  },
+  "ytlTranslate": {
+    "message": "Traducción",
+    "description": "ytlyric floating window"
+  },
+  "ytlColor": {
+    "message": "Color de la letra",
+    "description": "ytlyric floating window"
+  },
+  "ytlPopoutButton": {
+    "message": "Letra en ventana flotante (Alt+L)",
+    "description": "ytlyric floating window"
+  },
+  "ytlUnsupported": {
+    "message": "ytlyric: este navegador no soporta ventanas flotantes (Document Picture-in-Picture). Usa Edge o Chrome 116+.",
+    "description": "ytlyric floating window"
+  },
+  "ytlOpenLyricsTab": {
+    "message": "Abre una vez la pestaña Letra en YouTube Music y vuelve a abrir la ventana flotante.",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorAuto": {
+    "message": "Automático",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorRed": {
+    "message": "Rojo YouTube",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorEmerald": {
+    "message": "Verde esmeralda",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorCyan": {
+    "message": "Cian neón",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorGold": {
+    "message": "Dorado",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorPurple": {
+    "message": "Púrpura neón",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorOrange": {
+    "message": "Naranja fuego",
+    "description": "ytlyric floating window"
+  },
+  "ytlColorWhite": {
+    "message": "Blanco",
+    "description": "ytlyric floating window"
   }
 }

@@ -1,196 +1,102 @@
-# YouLy+
+# ytlyric
 
-A web extension to elevate your **YouTube Music, Tidal & Apple Music** Experience with **ultra-performant, word-by-word lyrics**.
+Real-time karaoke lyrics for **YouTube Music**, in a **floating always-on-top window**, with romanization for Japanese, Chinese and Russian songs.
 
-[![License](https://img.shields.io/github/license/ibratabian17/YouLyPlus?style=for-the-badge)](https://github.com/ibratabian17/YouLyPlus/blob/main/LICENSE)
-[![Latest Version](https://img.shields.io/github/v/release/ibratabian17/YouLyPlus?style=for-the-badge)](https://github.com/ibratabian17/YouLyPlus/releases)
-[![GitHub Stars](https://img.shields.io/github/stars/ibratabian17/YouLyPlus?style=for-the-badge&color=yellow)](https://github.com/ibratabian17/YouLyPlus/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/ibratabian17/YouLyPlus?style=for-the-badge&color=blue)](https://github.com/ibratabian17/YouLyPlus/network/members)
+ytlyric is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra Al Tabian. YouLy+ handles the lyrics: it finds them, syncs them word by word and romanizes them. ytlyric adds a floating window that shows those lyrics outside the browser tab, plus fixes for the languages and songs it was built for.
 
-<p align="center">
-<img src="youlyplus.png" alt="The Screenshot">
-</p>
+> **Status:** personal project, tested on Microsoft Edge on Windows. It is not published in any extension store.
 
 ---
 
-## ➡️ Why YouLy+?
-
-Streaming services offer great music libraries, but their web interfaces are buggy, outdated and often only have line-by-line lyrics. **YouLy+ replaces these broken implementations with a word-by-word, lightweight, precise (idts), and visually faithful rendering engine.**
-
-Other open-source projects that provide Apple Music-like lyrics often require dedicated GPUs for full performance. **YouLy+ smartly utilises CSS animations to hit 60FPS on almost any machine with graphics acceleration. See [Performance Reference](#performance-reference).**
-
-## Supported streaming platforms
-
-* **YouTube Music:** Transforms the default static or plain text lyrics into a rich, timed, karaoke-style experience.
-* **Tidal Web (Experimental):** While Tidal Web offers synced lyrics, they are limited to **line-by-line** synchronization. YouLy+ makes them **word-by-word**.
-* **Apple Music Web (Experimental):** The native web player attempts word-by-word sync, but the implementation is flawed and inaccurate. YouLy+ replaces their laggy implementation with a CSS-animation driven smooth experience.
-
-## Installation
-
-### ⭐ Recommended: Install from Official Stores
-
-For the safest and easiest experience, install YouLy+ directly from your browser's web store. This ensures you get automatic updates and a verified version of the extension.
-
-<p float="left">
-<a href="https://chromewebstore.google.com/detail/youly+/pboadpgpgabkmepmgchhlnlfnimlnmoe" target="_blank"><img src="https://developer.chrome.com/static/docs/webstore/branding/image/iNEddTyWiMfLSwFD6qGq.png" alt="Google Chrome Webstore Extensions" height="60"/></a>
-<a href="https://addons.mozilla.org/en-US/firefox/addon/youly/" target="_blank"><img src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Firefox Add-ons" height="60"/></a>
-<a href="https://microsoftedge.microsoft.com/addons/detail/youly/gichhhcjpkhbidkecadfejcjgcmdlnpb" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Get_it_from_Microsoft_Badge.svg" alt="Microsoft Edge Extensions" height="60"/></a>
-</p>
-
-<details>
-<summary><b>For Developers & Advanced Users: Install from Source</b></summary>
-
-### For Chromium Based Browsers (Manifest V3)
-
-1.  **Clone or Download the Repository:**
-    ```bash
-    git clone [https://github.com/ibratabian17/YouLyPlus.git](https://github.com/ibratabian17/YouLyPlus.git)
-    ```
-2.  Alternatively, you can download the latest release from [Github Releases](https://github.com/ibratabian17/YouLyPlus/releases/latest) and extract them.
-3.  **Open Chrome Extensions Page:**
-    Navigate to `chrome://extensions/`.
-4.  **Enable Developer Mode:**
-    Toggle the "Developer mode" switch in the top right corner.
-5.  **Load Unpacked Extension:**
-    Click on "Load unpacked" and select the cloned repository folder.
-
-### For Firefox
-
-1.  **Clone or Download the Repository:**
-    ```bash
-    git clone [https://github.com/ibratabian17/YouLyPlus.git](https://github.com/ibratabian17/YouLyPlus.git)
-    ```
-2.  Alternatively, you can download the latest release from [Github Releases](https://github.com/ibratabian17/YouLyPlus/releases/latest).
-3.  **Open Firefox Debugging Page:**
-    Navigate to `about:debugging#/runtime/this-firefox`.
-4.  **Load Temporary Add-on:**
-    Click on "Load Temporary Add-on" and choose the `manifest.json` file from the repository folder.
-
-</details>
-
-## Usage
-
-Once installed, simply open one of the supported players:
-* **[YouTube Music](https://music.youtube.com/)**
-* **[Tidal Web Player](https://listen.tidal.com/)** *(Experimental)*
-* **[Apple Music Web](https://music.apple.com/)**
-
-Play any song, and the lyrics panel will automatically be enhanced by YouLy+.
-
--   **Quick Settings:** Access quick toggles by clicking the YouLy+ icon in your browser's toolbar.
--   **Full Settings:** For comprehensive customization, click **"More Settings"** from the popup.
-
-## Notes
-
-* Due to TIDAL updated the UI recently, the extension may lack of some features. I will try my best to fix them as soon as possible.
-
 ## Features
 
-### Core Features
+### Added in ytlyric
+- **Floating lyrics window.** Shows the lyrics on top of other apps and games running in windowed or borderless mode. Open it with the **⧉** button in the player bar or press **Alt+L**.
+  - Mini player: artwork, title, artist, previous / play-pause / next.
+  - **A- / A+** to change the lyrics size.
+  - **Aa** turns romanization on or off; **文A** turns translation on or off. The choice is remembered for the next songs.
+  - **🎨** lyrics color palette (7 colors + automatic).
+  - Keeps playing in sync when you switch tabs or minimize the browser.
+  - Remembers its size.
+- **Better Russian romanization**, using simplified BGN/PCGN rules that depend on the surrounding letters (`ель → yel`, `нет → net`, `пьёт → pyot`, `жёлтый → zholtyy`). This also works across karaoke syllables. Ukrainian is detected automatically.
+- **Japanese romanization works out of the box.** If the offline Kuromoji dictionary isn't installed, ytlyric falls back to Google instead of leaving kanji untranslated.
+- **Romanization and translation for unsynced lyrics.** They now appear under each line.
+- **Smarter search for user-uploaded videos.** Titles like `Closing Time (LYRICS) - Semisonic 🎧` uploaded by a channel are cleaned up and searched again as *Closing Time / Semisonic*.
+- **Original-language subtitles.** When YouTube subtitles are the only source, ytlyric picks the original-language track instead of an English translation.
 
--   **Word-by-word, syllable-synced lyrics**: YouLy+ features real-time, accurately synced lyrics with word-by-word highlighting.
--   **Apple Music engine overhaul**: Replaces the resource-heavy native Apple Music Web UI. YouLy+ replace their murdered animation with Apple Music Android-like animation with optimization. It also expands the lyric sources—if AM lacks synced lyrics, YouLy+ finds them elsewhere!
--   **Apple Music Web UI Optimizer**: Cleans up Apple Music's expensive DOM, canvas, WebGL, and ambient-video behavior so the lyrics surface stays responsive and lightweight. The optimizer disables noisy observers, strips heavy CSS rules, pauses offscreen background media, and freezes unnecessary Apple rendering work to reduce CPU/GPU waste while keeping the lyrics UI smooth.
--   **Optimize Apple Music**: This code inject any Apple Music Web function that using inefficient way with the new web browser native feature/other optimization implementation
--   **Multi-platform fallback**: Automatically searches multiple platforms to find lyrics for almost every song.
--   **Fits seamlessly**: Replaces default lyrics panels out of the box with designs that fit in to whichever platform you use.
+### From YouLy+
+- Word-by-word and syllable-synced lyrics with smooth CSS animations.
+- Multiple lyrics sources: Lyrics+ (Apple Music / QQ Music), lrc.red, Unison and LRCLIB.
+- Offline romanization (Japanese, Chinese pinyin, Korean, Russian, Arabic, Hebrew, Greek, Thai, Hindi). Romanization with Google or **Gemini AI** is optional.
+- Translation with Google, DeepL or Gemini AI.
+- Per-song timing offset, dynamic colors from the album art, custom CSS, and a lightweight mode.
 
-### Translation & Romanization
+---
 
--   **Instant Translation**: YouLy+ utilises label-provided translations but also supports **Google Translate**, **DeepL**, and **Gemini/OpenRouter** (BYO API key) translations.
--   **Romanization**: For different writing systems, YouLy+ can provide romanizations from your own device without external API locally! or you can use Google Translate or Openrouter or Gemini AI (BYO API key) for better romanization. (Local Romanize for Japanese and Arabic may need to download dictionary/model on the Settings Menu)
--   **Full Gemini AI Control**: For advanced users, connect your own Gemini AI account to customize translation instructions and AI settings.
--   **Transliteration**: You speak on non latin language but want to read lyrics in your own script? YouLy+ can help you. For example, you can transliterate lyrics from latin alphabet to hangul, arabic or many other scripts. (AI Required)
+## Installation (Edge / Chrome)
 
-### Appearance & Customization
+1. Download or clone this repository:
+   ```bash
+   git clone https://github.com/lizaress/ytlyric.git
+   ```
+2. Open `edge://extensions` (or `chrome://extensions`).
+3. Turn on **Developer mode**.
+4. If you have YouLy+ installed from the store, turn it off so the two don't conflict.
+5. Click **Load unpacked** and select the `ytlyric` folder.
+6. Open [YouTube Music](https://music.youtube.com), play a song and open the **Lyrics** tab once.
+7. Press **⧉** in the player bar or **Alt+L** to open the floating window.
 
--   **Dynamic Theming**: Lyrics and backgrounds automatically adapt to the **song's color palette**.
--   **Custom CSS**: Full control for advanced users to inject custom CSS and style the lyrics exactly how you want.
+To update, pull the latest changes and press **Reload** on the extension in `edge://extensions`.
 
-### Performance
+> The floating window uses the [Document Picture-in-Picture API](https://developer.chrome.com/docs/web-platform/document-picture-in-picture), available in Edge and Chrome 116+. Firefox doesn't support it.
 
--   **Optimized Renderer**: YouLy+ is designed and tested to run smoothly on older hardware without noticeable lag. on MBA M1, it stable at 60FPS with all heavy effects enabled.
--   **Lightweight Mode**: While 15 years old PC can run it on heavy effect enabled (AMD FX6300), more potato pc can enable lightweight mode to run it at 60FPS with less effects.
--   **Smart Music Video Adaption:** Automatically adapts lyrics timeline to follow non-music segments like intros, outros, and sponsors on music videos with SponsorBlock/Subtitle Alignment. (Feature currently exclusive to YouTube Music)
+### Optional: Gemini AI for better romanization
+Gemini reads kanji more accurately than the offline dictionary or Google. It uses one request per song, and the free tier is enough for normal listening.
 
-## Performance Reference
+1. Create a free API key at [Google AI Studio](https://aistudio.google.com/apikey).
+2. Open the extension popup → **More Settings** → **Translation**.
+3. Paste the key in **Gemini AI API Key** and set **Transliteration Provider** to **Gemini AI**.
+4. Under **Cache**, click **Clear Transliteration Cache** so songs are romanized again.
 
-The benchmark machine used to develop this project is older hardware (AMD FX-6300 + GT 620 from ~2012). YouLy+ is optimized to run where native web players fail.
+If Gemini fails or the daily quota runs out, ytlyric falls back to the other providers automatically.
 
-### GPU Performance (Targeting 60 FPS)
+---
 
-- **768p (1366x768):** Stable 60 FPS on **NVIDIA GT 620** (1GB) or equivalent integrated graphics.
-- **1080p (1920x1080):** GTX 650 / GT 1030 or above recommended for a locked 60 FPS.
+## Known limitations
+- The floating window **cannot be transparent or click-through**, and it probably won't show over games in exclusive fullscreen. These are browser limits.
+- It closes when the YouTube Music tab is closed, and it has to be opened with a click or with Alt+L.
+- Songs whose lyrics only exist without timestamps (common for less-known Russian songs) can't be synced. They are shown as plain text with romanization.
+- User-uploaded videos may be out of sync with the lyrics because they often have intros or edits. Prefer the official tracks in YouTube Music.
 
-- Tested on a M1 MacBook Air (base specs, 2560x1600 (1440x900 DPI) Retina display), YouLy+ stays stable at 60FPS with little decrease in battery life.
-
-## Why it's not 1:1 Apple Music-like lyrics?
-
-- 'Cuz I don't want it tho, while this project literally larping apple music, I don't really dig apple music's UI. I want to make this renderer have it's own uniqueness. Tho it doesn't mean I will not take inspiration from apple music, for example, on YTMusic/Tidal, YouLy+ uses their own font. When line got finished, YouLy+ intentionally deactivate the line after 1s no activity (gap or smth)
-
-## Self-Hosting & Open Source
-
-YouLy+ is proudly open-source.
-
-**Backend API (Lyrics+):** YouLy+ mainly utilises Lyrics+ for lyrics. This API is also fully open-source. If you could host your instance, YouLy+ would benefit lots from it! See instructions at the repo: [**ibratabian17/lyricsplus**](https://github.com/ibratabian17/lyricsplus)
-
-### External Services & Data Sources
- 
-YouLy+ integrates with several third-party lyrics providers. By using this extension, you agree to the respective Terms of Service of these platforms:
- 
-* **[lrc.red](https://lrc.red):** Apple Music word-synced lyrics database.
-* **[Unison](https://github.com/better-lyrics/unison):** As our alternate word-sync API lyrics using data from the Better-Lyrics community.
-* **[LRCLIB](https://github.com/tranxuanthang/lrclib):** A massive, crowdsourced database API that used as a primary fallback for synchronized lyrics.
-* **Lyrics+ Backend:** Our internal engine that prioritizes official metadata from Apple Music, and QQ Music to ensure professional-grade accuracy. Community lyrics are asked to migrate to Unison.
+---
 
 ## Development
 
-If you're interested in contributing to or modifying YouLy+:
+Plain JavaScript (Manifest V3), no build step. Load the folder unpacked and reload the extension after changes.
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone [https://github.com/ibratabian17/YouLyPlus.git](https://github.com/ibratabian17/YouLyPlus.git)
-    ```
-2.  **Load the Extension:**
-    Use your browser’s "Load unpacked" feature (as described in the [Installation](#installation) section) to test your changes in real-time.
+Main ytlyric additions:
 
-## Packaging
+| File | Purpose |
+|---|---|
+| `src/modules/popout/popout.js` | Floating window, mini player and quick controls |
+| `src/modules/popout/timerHost.js` | Keeps timers running while the tab is hidden and the popout is open |
+| `src/background/services/romanization/cyrillicRomanizer.js` | Context-aware Russian / Ukrainian romanization |
+| `src/background/utils/titleCleaner.js` | Title cleanup for user-uploaded videos |
 
-To create distributable `.zip` files for various browsers:
+To keep merging fixes from the original project:
+```bash
+git remote add upstream https://github.com/ibratabian17/YouLyPlus.git
+git fetch upstream
+git merge upstream/main
+```
 
-1.  **Prerequisites:** Ensure you have `jq` and a zip utility (`zip` or `7z`) installed on your system.
-2.  **Run the Script:**
-    -   On Linux/macOS: `./bundle.sh`
-    -   On Windows (PowerShell): `./bundle.ps1`
+Packaging: `./bundle.ps1` (Windows) or `./bundle.sh` (Linux/macOS) creates `.zip` files in `dist/`. Both need `jq` and a zip tool.
 
-These scripts will generate optimized packages for different browsers within the `dist/` folder.
+---
 
-## Contributing
+## Credits and license
 
-Contributions are very appreciated! Please feel free to fork this repository and submit a pull request. For significant changes or new features, it's recommended to open an issue first to discuss your ideas.
+- **[YouLy+](https://github.com/ibratabian17/YouLyPlus)** by [Ibra Al Tabian](https://github.com/ibratabian17) and its contributors. It provides the lyrics engine, the sources, the romanizers and the settings UI. If you like this, please support the original project on [Ko-fi](https://ko-fi.com/ibratabian17) or [Patreon](https://patreon.com/ibratabian17).
+- Lyrics come from third-party services (Lyrics+, lrc.red, Unison, LRCLIB, YouTube), each under its own terms.
 
-### Contributors
-
-Thanks to everyone who has contributed code, translations, bug reports and ideas to YouLy+!
-
-<table>
-  <tr>
-    <td align="center"><a href="https://github.com/mfadamo"><img src="https://github.com/mfadamo.png?size=100" width="80" alt="mfadamo"><br>mfadamo</a></td>
-    <td align="center"><a href="https://github.com/imannig"><img src="https://github.com/imannig.png?size=100" width="80" alt="imannig"><br>imannig</a></td>
-    <td align="center"><a href="https://github.com/MeDustyy"><img src="https://github.com/MeDustyy.png?size=100" width="80" alt="MeDustyy"><br>MeDustyy</a></td>
-    <td align="center"><a href="https://github.com/binimum"><img src="https://github.com/binimum.png?size=100" width="80" alt="binimum"><br>binimum</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/oRevived"><img src="https://github.com/oRevived.png?size=100" width="80" alt="oRevived"><br>oRevived</a></td>
-    <td align="center"><a href="https://github.com/Dipak-Chauhan"><img src="https://github.com/Dipak-Chauhan.png?size=100" width="80" alt="Dipak-Chauhan"><br>Dipak-Chauhan</a></td>
-    <td align="center"><a href="https://github.com/DeVFirmino"><img src="https://github.com/DeVFirmino.png?size=100" width="80" alt="DeVFirmino"><br>DeVFirmino</a></td>
-  </tr>
-</table>
-
-And also big thanks for @boidushya for optimization helps. @pascal-00, @binimum and @mgytr for keeping the infrastructure alive!
-
-This project is a dedicated effort covering both the client extension and the server backend. If YouLy+ enhances your music experience, please consider supporting its continued development:
-
--   [**Support on Ko-fi**](https://ko-fi.com/ibratabian17)
--   [**Support on Patreon**](https://patreon.com/ibratabian17)
--   [**GitHub Sponsors**](https://github.com/sponsors) (see `FUNDING.yml`)
+Released under the [MIT License](LICENSE), the same as YouLy+. The original copyright notice is kept.

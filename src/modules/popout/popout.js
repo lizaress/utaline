@@ -16,6 +16,16 @@
   const TITLE_SEL = '.title.style-scope.ytmusic-player-bar';
   const BYLINE_SEL = '.byline.style-scope.ytmusic-player-bar';
 
+  // Localized UI text (_locales/*/messages.json), with an English fallback.
+  function msg(key, fallback) {
+    try {
+      const pBrowser = typeof browser !== 'undefined' ? browser : (typeof chrome !== 'undefined' ? chrome : null);
+      return pBrowser?.i18n?.getMessage(key) || fallback;
+    } catch (e) {
+      return fallback;
+    }
+  }
+
   const state = {
     pipWin: null,
     panel: null,
@@ -135,14 +145,14 @@
         <img id="ytl-art" alt="">
         <div id="ytl-meta"><div id="ytl-title"></div><div id="ytl-artist"></div></div>
         <div id="ytl-controls">
-          <button data-act="prev" title="Anterior">⏮</button>
-          <button data-act="play" title="Reproducir / pausar">⏯</button>
-          <button data-act="next" title="Siguiente">⏭</button>
-          <button data-act="smaller" title="Letra más pequeña">A-</button>
-          <button data-act="bigger" title="Letra más grande">A+</button>
-          <button data-act="romanize" title="Romanización (romaji / pinyin / latino)">Aa</button>
-          <button data-act="translate" title="Traducción">文A</button>
-          <button data-act="color" title="Color de la letra">🎨</button>
+          <button data-act="prev" title="${msg('ytlPrev', 'Previous')}">⏮</button>
+          <button data-act="play" title="${msg('ytlPlayPause', 'Play / pause')}">⏯</button>
+          <button data-act="next" title="${msg('ytlNext', 'Next')}">⏭</button>
+          <button data-act="smaller" title="${msg('ytlSmaller', 'Smaller lyrics')}">A-</button>
+          <button data-act="bigger" title="${msg('ytlBigger', 'Bigger lyrics')}">A+</button>
+          <button data-act="romanize" title="${msg('ytlRomanize', 'Romanization (romaji / pinyin / Latin)')}">Aa</button>
+          <button data-act="translate" title="${msg('ytlTranslate', 'Translation')}">文A</button>
+          <button data-act="color" title="${msg('ytlColor', 'Lyrics color')}">🎨</button>
         </div>
       </div>
       <div id="ytl-palette" hidden></div>
@@ -193,7 +203,7 @@
   async function openPopout() {
     if (state.pipWin) { state.pipWin.focus(); return; }
     if (!('documentPictureInPicture' in window)) {
-      alert('ytlyric: este navegador no soporta ventanas flotantes (Document Picture-in-Picture). Usa Edge o Chrome 116+.');
+      alert(msg('ytlUnsupported', 'ytlyric: this browser does not support floating windows (Document Picture-in-Picture). Use Edge or Chrome 116+.'));
       return;
     }
 
@@ -219,7 +229,10 @@
       panel.parentNode.insertBefore(state.placeholder, panel);
       body.appendChild(panel);
     } else {
-      body.innerHTML = '<div id="ytl-empty">Abre una vez la pestaña <b>Letra</b> en YouTube Music y vuelve a abrir la ventana flotante.</div>';
+      const empty = pipWin.document.createElement('div');
+      empty.id = 'ytl-empty';
+      empty.textContent = msg('ytlOpenLyricsTab', 'Open the Lyrics tab in YouTube Music once, then open the floating window again.');
+      body.appendChild(empty);
     }
 
     // Keep the renderer running while the YT Music tab is hidden: it checks this flag,
@@ -293,7 +306,7 @@
     if (typeof setCurrentDisplayModeAndRender === 'function') {
       setCurrentDisplayModeAndRender(next);
     } else {
-      console.warn('ytlyric: setCurrentDisplayModeAndRender no disponible');
+      console.warn('ytlyric: setCurrentDisplayModeAndRender is not available');
     }
     renderModeButtons(next);
   }
@@ -308,16 +321,16 @@
   }
 
   // ---------- lyrics color ----------
-  // Same colors as the WPF prototype. '' = automatic (song / YouLy+ default).
+  // '' = automatic (song colors / YouLy+ default).
   const COLORS = [
-    ['', 'Automático'],
-    ['#FF0033', 'Rojo YouTube'],
-    ['#10B981', 'Verde esmeralda'],
-    ['#00E5FF', 'Cian neón'],
-    ['#FFD700', 'Dorado'],
-    ['#B026FF', 'Púrpura neón'],
-    ['#FF6B00', 'Naranja fuego'],
-    ['#FFFFFF', 'Blanco'],
+    ['', 'ytlColorAuto', 'Automatic'],
+    ['#FF0033', 'ytlColorRed', 'YouTube red'],
+    ['#10B981', 'ytlColorEmerald', 'Emerald green'],
+    ['#00E5FF', 'ytlColorCyan', 'Neon cyan'],
+    ['#FFD700', 'ytlColorGold', 'Gold'],
+    ['#B026FF', 'ytlColorPurple', 'Neon purple'],
+    ['#FF6B00', 'ytlColorOrange', 'Fire orange'],
+    ['#FFFFFF', 'ytlColorWhite', 'White'],
   ];
 
   function currentColor() {
@@ -338,7 +351,7 @@
       try {
         r._applyPaletteSettings(container, Object.assign({}, typeof currentSettings !== 'undefined' ? currentSettings : {}, { overridePaletteColor: hex }));
         if (!hex) container.style.removeProperty('--lyplus-override-pallete');
-      } catch (e) { console.warn('ytlyric: no se pudo aplicar el color', e); }
+      } catch (e) { console.warn('ytlyric: could not apply the color', e); }
     }
     renderPalette();
   }
@@ -349,10 +362,10 @@
     if (!box) return;
     const active = currentColor().toUpperCase();
     box.innerHTML = '';
-    for (const [hex, name] of COLORS) {
+    for (const [hex, key, fallback] of COLORS) {
       const b = doc.createElement('button');
       b.className = 'ytl-swatch' + (hex.toUpperCase() === active ? ' is-active' : '');
-      b.title = name;
+      b.title = msg(key, fallback);
       b.dataset.color = hex;
       if (hex) b.style.background = hex;
       else b.textContent = 'A';
@@ -362,7 +375,7 @@
 
   function togglePopout() {
     if (state.pipWin) state.pipWin.close();
-    else openPopout().catch((err) => console.error('ytlyric: no se pudo abrir la ventana flotante', err));
+    else openPopout().catch((err) => console.error('ytlyric: could not open the floating window', err));
   }
 
   // ---------- entry points: player-bar button + Alt+L ----------
@@ -373,7 +386,7 @@
     if (!host) return;
     const btn = document.createElement('button');
     btn.id = 'ytlyric-popout-btn';
-    btn.title = 'Letra en ventana flotante (Alt+L)';
+    btn.title = msg('ytlPopoutButton', 'Lyrics in a floating window (Alt+L)');
     btn.textContent = '⧉';
     btn.style.cssText = 'background:none;border:0;color:var(--yt-spec-text-primary,#fff);font-size:20px;'
       + 'width:40px;height:40px;border-radius:50%;cursor:pointer;opacity:.8;';
