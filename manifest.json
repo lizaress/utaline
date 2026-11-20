@@ -57,6 +57,7 @@
         "*://*.music.youtube.com/*"
       ],
       "js": [
+        "src/modules/popout/timerHost.js",
         "src/lib/sponsorblock.js",
         "src/lib/subtitleRetimer.js",
         "src/lib/polyfill.js",
@@ -69,6 +70,7 @@
         "src/modules/ytmusic/forceTab.js",
         "src/modules/lyrics/dynamicBkg.js",
         "src/modules/ytmusic/index.js",
+        "src/modules/popout/popout.js",
         "src/content.js"
       ]
     },

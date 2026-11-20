@@ -9,3 +9,6 @@
 
 # Mac directory
 .DS_Store
+# Local-only (not part of the extension)
+Ag prot/
+plan.md

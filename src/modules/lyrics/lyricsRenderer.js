@@ -388,7 +388,7 @@ class LyricsPlusRenderer {
     };
 
     this._boundWakeLockVisibilityHandler = () => {
-      if (document.hidden) {
+      if (document.hidden && !window.__lyplusPopoutActive) { // ytlyric: don't stop while the popout window is open
         this._cancelScheduledSync();
       } else if (this.cachedLyricsLines && this.cachedLyricsLines.length > 0) {
         this._runScheduledSync(false);
@@ -3273,7 +3273,7 @@ class LyricsPlusRenderer {
       this.currentLyricsType === "None" ||
       !this.cachedLyricsLines ||
       this.cachedLyricsLines.length === 0 ||
-      document.hidden ||
+      (document.hidden && !window.__lyplusPopoutActive) || // ytlyric: keep syncing while the popout window is open
       !this._isSongPlaying()
     ) {
       return;
