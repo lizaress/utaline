@@ -23,7 +23,6 @@ Utaline is a fork of [YouLy+](https://github.com/ibratabian17/YouLyPlus) by Ibra
 - **Better Russian romanization**, using simplified BGN/PCGN rules that depend on the surrounding letters (`ель → yel`, `нет → net`, `пьёт → pyot`, `жёлтый → zholtyy`). This also works across karaoke syllables. Ukrainian is detected automatically.
 - **Japanese romanization works out of the box.** If the offline Kuromoji dictionary isn't installed, Utaline falls back to Google instead of leaving kanji untranslated.
 - **Romanization and translation for unsynced lyrics.** They now appear under each line.
-- **Smarter search for user-uploaded videos.** Titles like `Closing Time (LYRICS) - Semisonic 🎧` uploaded by a channel are cleaned up and searched again as *Closing Time / Semisonic*.
 - **Original-language subtitles.** When YouTube subtitles are the only source, Utaline picks the original-language track instead of an English translation.
 
 ### From YouLy+
@@ -68,7 +67,7 @@ If Gemini fails or the daily quota runs out, Utaline falls back to the other pro
 - The floating window **cannot be transparent or click-through**, and it probably won't show over games in exclusive fullscreen. These are browser limits.
 - It closes when the YouTube Music tab is closed, and it has to be opened with a click or with Alt+L.
 - Songs whose lyrics only exist without timestamps (common for less-known Russian songs) can't be synced. They are shown as plain text with romanization.
-- User-uploaded videos may be out of sync with the lyrics because they often have intros or edits. Prefer the official tracks in YouTube Music.
+- Lyrics are matched by title and artist, so user-uploaded videos (e.g. `Song (LYRICS) - Artist` posted by a fan channel) usually won't find lyrics. Use the official tracks in YouTube Music.
 
 ---
 
@@ -83,7 +82,6 @@ Main Utaline additions:
 | `src/modules/popout/popout.js` | Floating window, mini player and quick controls |
 | `src/modules/popout/timerHost.js` | Keeps timers running while the tab is hidden and the popout is open |
 | `src/background/services/romanization/cyrillicRomanizer.js` | Context-aware Russian / Ukrainian romanization |
-| `src/background/utils/titleCleaner.js` | Title cleanup for user-uploaded videos |
 
 To keep merging fixes from the original project:
 ```bash
